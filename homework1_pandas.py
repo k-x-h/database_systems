@@ -25,15 +25,11 @@ while option != 5:
     elif option == 2:
         print("result 2")
     elif option == 3: #adding new record
-        #print("result 3")
-        
+               
         #user input
         user_id=int(input("Enter ID to add:"))
         user_name=str(input("Enter name to add:"))
         user_department=str(input("Enter department to add:"))
-        
-        
-        
         
         if (df_instructors["instructor_id"] == user_id).any():
             print("Instructor id already exists in the file")
@@ -44,10 +40,8 @@ while option != 5:
             df_instructors=df_instructors.append(pd.DataFrame([[user_id, user_name, user_department]], columns=df_instructors.columns))
             print(df_instructors)
         
-        
     elif option == 4: #removing record
-        #print("result 4")
-        
+
         #user input
         user_remove=int(input("Enter ID to remove:"))
 
@@ -59,15 +53,9 @@ while option != 5:
             #print(df_instructors) 
     
     
-    
-    
-    #print()
-    #not needed^?
-    
-     
     menu() #continually opening menu function until exit (input == 5)
     option = int(input("Enter your option:"))
         
         
 print("program exit")
-#save df to file?
+#save df to file? potentially do at the end of each step?

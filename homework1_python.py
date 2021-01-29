@@ -4,14 +4,14 @@ import csv
 results = []
 with open("instructor.txt") as csvfile:
     reader = csv.reader(csvfile) 
-    for row in reader: # each row becomes a list within the results list
+    for row in reader: # each row becomes a list within the "results" list
         results.append(row)
         
         
         
 user_id=1002 #placeholder user input for instructor id
 
-id_list=[] #creatomg a list that will contain all of the id's
+id_list=[] #creating a list that will contain all of the id's
 
 
 
