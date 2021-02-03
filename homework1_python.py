@@ -1,23 +1,16 @@
 import csv
 
-
-
-
-
-
-
-
-def get_results():
+def get_instructors(): #use this to get current list of all records in instructor.txt file
     with open("instructor.txt") as csv_read:
         reader = csv.reader(csv_read) 
         for row in reader: # each row becomes a list within the "results" list
-            results.append(row)
+            instructors.append(row)
 
 def menu():
-    print("option 1")
-    print("option 2")
-    print("option 3")
-    print("option 4")
+    print("1. Enter the instructor ID to get the name of the instructor, affiliated department and the location of that department.")
+    print("2. Enter the department name to get the location, budget and names of all instructors that work for the department.")
+    print("3. Insert a record about a new instructor.")
+    print("4. Delete a record about an instructor.")
     print("exit")
    
     
@@ -54,8 +47,8 @@ else: #For debug only, remove at end
 
 
 
-results = []
-get_results()
+instructors = []
+get_instructors()
 
 menu()
 option = int(input("Enter your option:"))
@@ -74,9 +67,9 @@ while option != 5:
         instructor_name = str(input("Enter the instructor name: "))
         instructor_dept = str(input("Enter the instructor department: "))
         
-        if str(instructor_id) in (item for sublist in results for item in sublist):
+        if str(instructor_id) in (item for sublist in instructors for item in sublist):
             print("Instructor id already exists in the file")
-        elif str(instructor_dept) not in (item for sublist in results for item in sublist):
+        elif str(instructor_dept) not in (item for sublist in instructors for item in sublist):
             print("The department does not exist and hence the instructor record cannot be added to the database")
         
         else:
@@ -96,13 +89,13 @@ while option != 5:
     
     
     
-        results = []
-        get_results()
+        instructors = []
+        get_instructors()
 
         
         user_id=input("Enter ID to remove:")
 
-        if str(user_id) in (item for sublist in results for item in sublist):
+        if str(user_id) in (item for sublist in instructors for item in sublist):
             print("ID appears ---- Continue")
             
             id_list = []
@@ -149,21 +142,3 @@ while option != 5:
         
 print("program exit")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#writing results list to a csv text file, could potentially be turned into a function and done at the end of each step in the menu to ensure edits are saved
-#with open ("csv_results.txt", "w", newline="") as f:
-#    write = csv.writer(f)
-#    write.writerows(results)
