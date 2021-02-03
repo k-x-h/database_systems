@@ -2,24 +2,16 @@ import csv
 
 
 
-#current problems:
-
-
-results = []
-with open("instructor.txt") as csv_read:
-    reader = csv.reader(csv_read) 
-    for row in reader: # each row becomes a list within the "results" list
-        results.append(row)
-        
-
-
-#this adds a newline to the instructor.txt file so that csv writerow can start from a newline rather than the end of the last entry
-with open("instructor.txt", "a", newline='') as csv_write:
-    writer = csv.writer(csv_write)
-    writer.writerow('')    
 
 
 
+
+
+def get_results():
+    with open("instructor.txt") as csv_read:
+        reader = csv.reader(csv_read) 
+        for row in reader: # each row becomes a list within the "results" list
+            results.append(row)
 
 def menu():
     print("option 1")
@@ -29,9 +21,41 @@ def menu():
     print("exit")
    
     
-def save():
+def save(): #only using this for debug, remove at end
     print("Save-----")
 
+
+
+
+
+
+
+
+
+
+#adding new line to instructor.txt file only if it does not currently end with one (prevents later errors with adding new record)
+file=open("instructor.txt", "r")
+newline_check=[line.split(",") for line in file.readlines()]
+if not newline_check[-1][2].endswith("\n"): #checking to see if the last character in the given file contains a newline
+    print("DEBUG: adding newline") #For debug only, remove at end
+    with open("instructor.txt", "a", newline='') as csv_write: #appending newline only if the file does not already end with one
+        writer = csv.writer(csv_write)
+        writer.writerow('')    
+else: #For debug only, remove at end
+    print("DEBUG: Newline already exists") 
+
+
+
+
+
+
+
+
+
+
+
+results = []
+get_results()
 
 menu()
 option = int(input("Enter your option:"))
@@ -62,7 +86,7 @@ while option != 5:
                 writer.writerow(fields)
             
         
-        save() #unsure if a save needs to happen here, since it auto applies to the csv file
+        save() #not needed, just for debug
         
         
         
@@ -73,10 +97,8 @@ while option != 5:
     
     
         results = []
-        with open("instructor.txt") as csv_read:
-            reader = csv.reader(csv_read) 
-            for row in reader: # each row becomes a list within the "results" list
-                results.append(row)
+        get_results()
+
         
         user_id=input("Enter ID to remove:")
 
@@ -85,16 +107,8 @@ while option != 5:
             
             id_list = []
             
-            with open('instructor.txt', 'r') as readFile:
+            with open('instructor.txt', 'r') as readFile: 
                 reader = csv.reader(readFile)
-                
-                
-                
-                
-                
-                
-                
-                
                 for row in reader:
                     id_list.append(row)
                     for field in row:
@@ -102,7 +116,8 @@ while option != 5:
                             id_list.remove(row)
                             
                             
-            with open ("csv_results.txt", "w", newline="") as f:
+            #writing results from the record removal into a txt file
+            with open ("csv_results.txt", "w", newline="") as f:  #change this to instructor.txt when finished
                 write = csv.writer(f)
                 write.writerows(id_list)
                             
@@ -110,8 +125,8 @@ while option != 5:
                             
                             
         
-            print(id_list)
-            save() 
+            print(id_list) #not needed, just for debug
+            save()  #not needed, just for debug
         
         else:
             print("The ID does not appear in the file.")
@@ -137,3 +152,18 @@ print("program exit")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+#writing results list to a csv text file, could potentially be turned into a function and done at the end of each step in the menu to ensure edits are saved
+#with open ("csv_results.txt", "w", newline="") as f:
+#    write = csv.writer(f)
+#    write.writerows(results)
